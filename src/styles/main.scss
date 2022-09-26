@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+$bg-main-clr: rgb(236, 231, 230);
+$text-clr: rgb(37, 37, 35);
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family: 'Roboto', sans-serif;
+	// outline: 1px dashed red;
+}
+
+body {
+	background-color: $bg-main-clr;
+	color: $text-clr;
+}
+
+#root {
+	display: grid;
+	place-items: center;
+	// flex-direction: column;
+	min-height: 100vh;
+}

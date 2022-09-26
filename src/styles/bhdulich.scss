@@ -1,0 +1,206 @@
+$bg-accent-clr: rgb(250, 247, 245);
+$bg-main-clr: rgb(236, 231, 230);
+
+.wrapper {
+	margin: 5rem auto;
+	border-radius: 0.2rem;
+	border: 1px solid black;
+	background-color: $bg-accent-clr;
+	width: 370px;
+	text-align: center;
+	position: relative;
+
+	&::after,
+	&::before {
+		border-radius: 0.2rem;
+		border: 1px solid black;
+		content: '';
+		display: block;
+		position: absolute;
+		width: 100%;
+		height: 100%;
+	}
+
+	&::before {
+		right: 0.4rem;
+		top: 0.4rem;
+		z-index: -2;
+	}
+
+	&::after {
+		right: 0.8rem;
+		top: 0.8rem;
+		z-index: -1;
+	}
+}
+
+.top_head {
+	border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+	padding: 0.5rem 0;
+}
+
+form {
+	display: -webkit-box;
+	display: -ms-flexbox;
+	display: flex;
+	padding: 0 0.8rem;
+	-webkit-box-orient: vertical;
+	-webkit-box-direction: normal;
+	-ms-flex-direction: column;
+	flex-direction: column;
+
+	& > p:first-of-type {
+		font-weight: bold;
+		text-transform: uppercase;
+		padding: 0.7rem 0;
+	}
+
+	& label {
+		display: flex;
+		align-items: center;
+		margin: 0;
+		text-align: left;
+		font-size: 0.7rem;
+		font-weight: bold;
+		padding-top: 0.8rem;
+	}
+
+	& input {
+		background-color: transparent;
+		border-style: none;
+		outline: none;
+		border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+		padding: 0.5rem;
+		height: 30px;
+		color: inherit;
+		font-size: 1.2rem;
+	}
+
+	& select {
+		min-height: 2.2rem;
+		outline: none;
+		border-top-color: transparent;
+		border-left-color: transparent;
+		border-right-color: transparent;
+		border-bottom-color: rgba(0, 0, 0, 0.2);
+		margin-top: 0.5rem;
+		background-color: inherit;
+		font-size: 1.2rem;
+	}
+}
+
+input {
+	&[type='number'] {
+		-moz-appearance: textfield;
+	}
+	&::-webkit-outer-spin-button,
+	&::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	&[type='checkbox'] {
+		appearance: none;
+		border: 1px solid #000000;
+		width: 25px;
+		height: 25px;
+		cursor: pointer;
+		position: relative;
+
+		&::after {
+			content: url('https://api.iconify.design/ci/check-bold.svg?width=30&height=30');
+			position: absolute;
+			top: -3px;
+			left: -3px;
+			opacity: 0;
+		}
+
+		&:checked::after {
+			opacity: 1;
+		}
+	}
+	&[type='checkbox'][disabled] {
+		background-color: rgba(139, 131, 131, 0.424);
+		border-color: rgb(0, 0, 0);
+		cursor: default;
+
+		&::after {
+			opacity: 0;
+		}
+	}
+
+	&:disabled + p {
+		color: hsl(0, 0%, 0%);
+		text-decoration: line-through;
+	}
+}
+
+button {
+	margin: 1rem 0;
+	padding: 0.5rem 1rem;
+	width: max-content;
+	align-self: center;
+	font-size: 1.4rem;
+	border: 1px solid rgba(0, 0, 0, 0.4);
+	color: inherit;
+	background: transparent;
+	transition: background 0.1s linear;
+
+	&:hover,
+	&:focus {
+		-webkit-transform: scale(1.1);
+		transform: scale(1.03);
+		background: $bg-main-clr;
+		cursor: pointer;
+	}
+}
+.result {
+	position: relative;
+
+	&_cont {
+		width: 80%;
+		min-height: 100px;
+		margin: 1.5rem auto;
+		display: -webkit-box;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-align: center;
+		-ms-flex-align: center;
+		align-items: center;
+		-webkit-box-pack: center;
+		-ms-flex-pack: center;
+		justify-content: center;
+		font-size: 2rem;
+		font-weight: bold;
+	}
+
+	&:before,
+	&:after {
+		position: absolute;
+		font-size: 0.8rem;
+		color: rgba(234, 117, 15, 0.947);
+	}
+
+	&:before {
+		content: ' VNĐ ';
+		left: -33px;
+	}
+	&:after {
+		content: ' /người ';
+		top: 18px;
+		right: -40px;
+	}
+}
+
+.car.result::after {
+	content: '/năm';
+}
+
+.packages {
+	display: flex;
+	width: 100%;
+	align-items: center;
+	gap: 0.5rem;
+	text-transform: none;
+	margin-bottom: 0.2rem;
+}
