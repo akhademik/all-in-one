@@ -16,6 +16,10 @@
 		margin: 0.2rem;
 		background-color: rgb(237, 224, 224);
 		height: 70px;
+
+		& > .logo {
+			width: 100%;
+		}
 	}
 
 	&-menu {
