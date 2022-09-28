@@ -7,7 +7,7 @@ const BHoto = () => {
 		currentYear: new Date().getFullYear(),
 		pickYear: new Date().getFullYear(),
 	});
-
+	//  check commit
 	const [Checked, setChecked] = useState({
 		cb: true,
 		o3: false,
