@@ -1,48 +1,53 @@
-import React, { useState } from 'react';
+import React, { useReducer } from 'react';
 import { formatInputNumber, calculatePrice, calculateYearRange } from '../helpers';
 
-const BHoto = () => {
-	const [Cost, setCost] = useState(300000000);
-	const [Year, setYear] = useState({
-		currentYear: new Date().getFullYear(),
-		pickYear: new Date().getFullYear(),
-	});
-	//  check commit
-	const [Checked, setChecked] = useState({
-		cb: true,
-		o3: false,
-		o6: false,
-		o7: false,
-		o8: false,
-	});
-	const [Price, setPrice] = useState(0);
-
-	const [DKBS, setDKBS] = useState({
+const initStates = {
+	Cost: 300000000,
+	Year: { currentYear: new Date().getFullYear(), pickYear: new Date().getFullYear() },
+	Checked: { cb: true, o3: false, o6: false, o7: false, o8: false },
+	Price: 0,
+	DKBS: {
 		o3: { title: `Mất cắp bộ phận`, isAvail: true },
 		o6: { title: `Không khấu hao phụ tùng, vật tư thay mới`, isAvail: true },
 		o7: { title: `Lựa chọn cơ sở sửa chữa`, isAvail: true },
 		o8: { title: `Thiệt hại động cơ xe do bị thủy kích`, isAvail: true },
-	});
+	},
+};
+
+const reducer = (states, action) => {
+	const actionSets = {
+		setCost: { ...states, Cost: action.payload },
+		setYear: { ...states, Year: action.payload },
+		setChecked: { ...states, Checked: action.payload },
+		setPrice: { ...states, Price: action.payload },
+		setDKBS: { ...states, DKBS: action.payload },
+	};
+	return actionSets[action.type];
+};
+
+const BHoto = () => {
+	const [states, dispatch] = useReducer(reducer, initStates);
+	const { Cost, Year, Checked, Price, DKBS } = states;
 
 	const handleFormSubmit = e => {
 		e.preventDefault();
-		setPrice(calculatePrice(Cost, Year, Checked, DKBS));
+		dispatch({ type: 'setPrice', payload: calculatePrice(Cost, Year, Checked, DKBS) });
 	};
 
 	const handleCheck = ({ target }) => {
 		const val = target.getAttribute('data-type');
-		const newCheckedState = { ...Checked, [val]: target.checked };
-		setChecked(newCheckedState);
+		dispatch({ type: 'setChecked', payload: { ...Checked, [val]: target.checked } });
 	};
 
 	const handleInput = ({ target }) => {
 		const val = target.getAttribute('data-type');
 		if (val === 'cost') {
 			formatInputNumber(target);
-			setCost(target.value);
+			dispatch({ type: 'setCost', payload: target.value });
 		} else {
 			const newYear = { ...Year, pickYear: target.value };
-			setYear(newYear);
+			dispatch({ type: 'setYear', payload: newYear });
+
 			const isCheckAvail = calculateYearRange(newYear);
 			const { ...newDKBS } = DKBS;
 
@@ -68,7 +73,7 @@ const BHoto = () => {
 					newDKBS.o3.isAvail = newDKBS.o6.isAvail = newDKBS.o7.isAvail = newDKBS.o8.isAvail = false;
 					break;
 			}
-			setDKBS(newDKBS);
+			dispatch({ type: 'setDKBS', payload: newDKBS });
 		}
 	};
 
